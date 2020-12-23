@@ -1,0 +1,9 @@
+/__dirname
+/.vscode
+/dist
+/node_modules
+package.json
+.prettierrc.json
+package-lock.json
+task
+webpack.config.js
