@@ -2,7 +2,8 @@
 /.vscode
 /dist
 /node_modules
-package.json
+/src/app-old.js
+/src/test.js
 .prettierrc.json
 package-lock.json
 task

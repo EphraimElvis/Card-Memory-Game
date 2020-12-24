@@ -8,8 +8,11 @@ const divEl = document.createDocumentFragment();
 const myScore = document.querySelector(".my-score");
 const highScore = document.querySelector(".high-score");
 const highAttempt = document.querySelector(".high-score-attempt");
-let progressBar = document.querySelector(".progressBar");
-let paintBar = document.querySelector(".paintBar");
+let display = document.querySelector("#time");
+let getMinutes = 1;
+let getSeconds = 60;
+let zero_seconds = 0;
+let inteval;
 
 const cardImages = [
   "fa-vuejs",
@@ -191,52 +194,30 @@ function returnPlayerCard(currentCard, prevCard) {
 }
 
 //count down timer
-function startTimer(duration, display) {
-  //get the Total duration
-  let getTimerLength = duration;
-  // increment counter
-  let counter = 1;
+function startTimer() {
+  display.textContent = `${"0" + getMinutes}:${getSeconds}`;
 
-  console.log("duration", duration);
-  let timer = duration,
-    minutes,
-    seconds;
-  setInterval(function () {
-    minutes = parseInt(timer / 60, 10);
-    seconds = parseInt(timer % 60, 10);
-
-    minutes = minutes < 10 ? "0" + minutes : minutes;
-    seconds = seconds < 10 ? "0" + seconds : seconds;
-
-    display.textContent = minutes + ":" + seconds;
-    console.log(Number(timer), "counter ", (counter += 1));
-    //progress bar
-    //startProgressBar(counter, getTimerLength);
-    if (--timer < 0) {
-      timer = duration;
+  if (getSeconds > zero_seconds) {
+    display.textContent = `${"0" + getMinutes}:${getSeconds}`;
+  } else {
+    if (getSeconds == zero_seconds) {
+      getMinutes -= 1;
+      display.textContent = `${"0" + getMinutes}:${getSeconds}`;
+      //clearInterval(inteval);
+    } else if (getMinutes === zero_seconds) {
+      display.textContent = "Timer Completed";
+      resetCard();
+      clearInterval(inteval);
+    } else {
+      getSeconds = 60;
     }
-  }, 1000);
-  console.log(duration);
+  }
+  getSeconds -= 1;
 }
 
 //start timer
 function timerStarted() {
-  //set timer minutes
-  let fiveMinutes = 60 * 5;
-  let display = document.querySelector("#time");
-  let st = startTimer(fiveMinutes, display);
-}
-
-//progress bar
-
-function startProgressBar(val, timerDuration) {
-  //barLength = 100;
-  let getLength;
-  console.log(getLength);
-  if (val <= timerDuration) {
-    getLength = Number((val * 100) / timerDuration);
-    paintBar.style.width = getLength + "%";
-  }
+  inteval = setInterval(startTimer, 1000);
 }
 
 // save higher and number of atempts
@@ -244,27 +225,21 @@ function saveHighestScore(score, count) {
   let currentScore = score;
   let curentCount = count;
 
-  localStorage.setItem("highestScore", currentScore);
-  localStorage.setItem("attempts", curentCount);
-
   let hScore = localStorage.getItem("highestScore");
-  let mCount = localStorage.getItem("attempts");
 
   //check for higher score
   if (currentScore > hScore) {
     localStorage.setItem("highestScore", currentScore);
     localStorage.setItem("attempts", curentCount);
   }
-
-  //update ui
-  //   highScore.textContent = hScore;
-  //   highAttempt.textContent = mCount;
 }
 
 //reset game cards
-resetCard();
 function resetCard() {
-  console.log("all cards ", allCards);
+  const cards = document.querySelectorAll(".flip-cards i");
+  for (let i = 0; i < cards.length; i++) {
+    cards[i].classList.remove("card-match");
+  }
 }
 
 //Play Card
