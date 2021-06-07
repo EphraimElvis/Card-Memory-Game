@@ -1,0 +1,32 @@
+{
+  "name": "Card-Memory-Game",
+  "version": "1.0.0",
+  "description": "Card Memory Game ---------------------------------------------------------------- Description Is a game where you have to click on a card to see what image is underneath it and try to find the matching image underneath the other cards.",
+  "main": "test.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack",
+    "start": "webpack serve"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EphraimElvis/Flip-Game.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/EphraimElvis/Flip-Game/issues"
+  },
+  "homepage": "https://github.com/EphraimElvis/Flip-Game#readme",
+  "dependencies": {
+    "webpack": "^5.10.1",
+    "webpack-cli": "^4.2.0"
+  },
+  "devDependencies": {
+    "css-loader": "^5.0.1",
+    "prettier": "2.2.1",
+    "style-loader": "^2.0.0",
+    "webpack-dev-server": "^3.11.0"
+  }
+}
